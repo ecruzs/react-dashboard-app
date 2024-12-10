@@ -1,10 +1,28 @@
+import { useEffect } from 'react';
+import { useAppContext } from '@/shared/context/useAppContext';
+import { mockItems } from '@/assets/data/mockData';
+import { DashboardHeader } from './DashboardHeader';
+import { DashboardFilters } from './DashboardFilters';
+import { ItemsTable } from './ItemsTable';
+// import { DashboardCharts } from './DashboardCharts';
+
 export const Dashboard = () => {
+  const { dispatch } = useAppContext();
+
+  useEffect(() => {
+    // Load mock data on initialization
+    dispatch({ type: 'SET_ITEMS', payload: mockItems });
+  }, [dispatch]);
+
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {/* TODO: dashboard components */}
+      <DashboardHeader />
+      <DashboardFilters />
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* TODO: DashboardCharts */}
+        {/* <DashboardCharts /> */}
       </div>
+      <ItemsTable />
     </div>
   );
 };
