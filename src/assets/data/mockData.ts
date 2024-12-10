@@ -49,4 +49,4 @@ export const mockItems: Item[] = [
 ];
 
 export const categories = ['Reports', 'Marketing', 'IT', 'Supplies', 'HR'];
-export const statuses = ['active', 'inactive'];
+export const statuses = ['active', 'inactive'] as const;
