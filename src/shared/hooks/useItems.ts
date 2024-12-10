@@ -2,68 +2,71 @@ import { useAppContext } from '@/shared/context/useAppContext';
 import { Item } from '@/core/types/item';
 import { Filters } from '@/core/types/filters';
 import { SortConfig } from '@/core/types/filters';
+import { useCallback, useMemo } from 'react';
 
 export function useItems() {
   const { state, dispatch } = useAppContext();
 
-  const addItem = (item: Item) => {
+  const setItems = useCallback((items: Item[]) => {
+    dispatch({ type: 'SET_ITEMS', payload: items });
+  }, [dispatch]);
+
+  const addItem = useCallback((item: Item) => {
     dispatch({ type: 'ADD_ITEM', payload: item });
-  };
+  }, [dispatch]);
 
-  const updateItem = (item: Item) => {
+  const updateItem = useCallback((item: Item) => {
     dispatch({ type: 'UPDATE_ITEM', payload: item });
-  };
+  }, [dispatch]);
 
-  const deleteItem = (id: string) => {
+  const deleteItem = useCallback((id: string) => {
     dispatch({ type: 'DELETE_ITEM', payload: id });
-  };
+  }, [dispatch]);
 
-  const setFilters = (filters: Filters) => {
+  const setFilters = useCallback((filters: Filters) => {
     dispatch({ type: 'SET_FILTERS', payload: filters });
-  };
+  }, [dispatch]);
 
-  const setSort = (sort: SortConfig) => {
+  const setSort = useCallback((sort: SortConfig) => {
     dispatch({ type: 'SET_SORT', payload: sort });
-  };
+  }, [dispatch]);
 
-  const filteredAndSortedItems = () => {
+  const filteredAndSortedItems = useMemo(() => {
     let result = [...state.items];
 
-    // Apply filters
-    if (state.filters.search) {
-      result = result.filter(item =>
-        item.name.toLowerCase().includes(state.filters.search.toLowerCase())
-      );
-    }
-    if (state.filters.category) {
-      result = result.filter(item => item.category === state.filters.category);
-    }
-    if (state.filters.status) {
-      result = result.filter(item => item.status === state.filters.status);
+    const { search, category, status } = state.filters;
+    const { field, direction } = state.sort;
+
+    // Apply all filters in one iteration 
+    if (search || category || status) {
+      const searchLower = search.toLowerCase();
+      result = result.filter(item => {
+        const matchesSearch = !search || item.name.toLowerCase().includes(searchLower);
+        const matchesCategory = !category || item.category === category;
+        const matchesStatus = !status || item.status === status;
+        return matchesSearch && matchesCategory && matchesStatus;
+      });
     }
 
-    // Apply order
-    result.sort((a, b) => {
-      const field = state.sort.field;
+    // Optimize sorting
+    const sortDirection = direction === 'asc' ? 1 : -1;
+    return result.sort((a, b) => {
       const aValue = a[field];
       const bValue = b[field];
 
       if (aValue === undefined || bValue === undefined) return 0;
-
-      const direction = state.sort.direction === 'asc' ? 1 : -1;
-      return aValue > bValue ? direction : -direction;
+      return aValue > bValue ? sortDirection : -sortDirection;
     });
-
-    return result;
-  };
+  }, [state.items, state.filters, state.sort]);
 
   return {
     items: state.items,
-    filteredItems: filteredAndSortedItems(),
+    filteredItems: filteredAndSortedItems,
     filters: state.filters,
     sort: state.sort,
     isLoading: state.isLoading,
     error: state.error,
+    setItems,
     addItem,
     updateItem,
     deleteItem,

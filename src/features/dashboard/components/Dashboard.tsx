@@ -6,15 +6,17 @@ import { DashboardStats } from './DashboardStats';
 import { DashboardFilters } from './DashboardFilters';
 import { DashboardCharts } from './DashboardCharts';
 import { ItemsTable } from './ItemsTable';
+import { useItems } from '@/shared/hooks/useItems';
 
 export const Dashboard = () => {
-  const { state, dispatch } = useAppContext();
+  const { state } = useAppContext();
+  const { setItems } = useItems();
 
   useEffect(() => {
     if (state.items.length === 0) {
-      dispatch({ type: 'SET_ITEMS', payload: mockItems });
+      setItems(mockItems);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (state.items.length === 0) {
