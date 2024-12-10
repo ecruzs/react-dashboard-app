@@ -8,12 +8,18 @@ import { DashboardCharts } from './DashboardCharts';
 import { ItemsTable } from './ItemsTable';
 
 export const Dashboard = () => {
-  const { dispatch } = useAppContext();
+  const { state, dispatch } = useAppContext();
 
   useEffect(() => {
-    // Load mock data on initialization
-    dispatch({ type: 'SET_ITEMS', payload: mockItems });
-  }, [dispatch]);
+    if (state.items.length === 0) {
+      dispatch({ type: 'SET_ITEMS', payload: mockItems });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (state.items.length === 0) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="space-y-6">
