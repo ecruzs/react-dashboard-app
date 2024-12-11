@@ -1,10 +1,12 @@
 import { Router } from '@/routes/Router';
-import { AppProvider } from './shared/context/AppProvider';
+import { AppProvider, NotificationProvider } from '@/shared/context';
 
 function App() {
   return (
     <AppProvider>
-      <Router />
+      <NotificationProvider>
+        <Router />
+      </NotificationProvider>
     </AppProvider>
   );
 }
