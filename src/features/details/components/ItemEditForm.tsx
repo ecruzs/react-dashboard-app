@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Item } from '@/core/types/item';
+import { Item } from '@/core/types';
 import { categories, statuses } from '@/assets/data/mockData';
 import { itemSchema, ItemFormData } from '../validation/itemSchema';
 

@@ -1,11 +1,11 @@
-import { useAppContext } from '@/shared/context/useAppContext';
+import { useApp } from '@/shared/context';
 import { Item } from '@/core/types/item';
 import { Filters } from '@/core/types/filters';
 import { SortConfig } from '@/core/types/filters';
 import { useCallback, useMemo } from 'react';
 
 export function useItems() {
-  const { state, dispatch } = useAppContext();
+  const { state, dispatch } = useApp();
 
   const setItems = useCallback((items: Item[]) => {
     dispatch({ type: 'SET_ITEMS', payload: items });

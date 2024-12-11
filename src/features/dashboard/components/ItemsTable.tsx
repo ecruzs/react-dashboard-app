@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useItems } from '@/shared/hooks/useItems';
-import { Item } from '@/core/types/item';
+import { Item } from '@/core/types';
 
 export const ItemsTable = () => {
   const { filteredItems, sort, setSort } = useItems();

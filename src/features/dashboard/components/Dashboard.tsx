@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAppContext } from '@/shared/context/useAppContext';
+import { useApp } from '@/shared/context';
 import { mockItems } from '@/assets/data/mockData';
 import { DashboardHeader } from './DashboardHeader';
 import { DashboardStats } from './DashboardStats';
@@ -9,7 +9,7 @@ import { ItemsTable } from './ItemsTable';
 import { useItems } from '@/shared/hooks/useItems';
 
 export const Dashboard = () => {
-  const { state } = useAppContext();
+  const { state } = useApp();
   const { setItems } = useItems();
 
   useEffect(() => {

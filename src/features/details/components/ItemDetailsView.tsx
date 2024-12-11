@@ -1,4 +1,4 @@
-import { Item } from '@/core/types/item';
+import { Item } from '@/core/types';
 
 interface ItemDetailsViewProps {
   item: Item;
