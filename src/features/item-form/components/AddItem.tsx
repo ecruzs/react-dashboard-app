@@ -4,8 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useItems } from '@/shared/hooks/useItems';
 import { itemSchema, ItemFormData } from '../validation/itemSchema';
 import { categories, statuses } from '@/assets/data/mockData';
+import { useNotification } from '@/shared/context';
 
 export const AddItem = () => {
+  const { showNotification } = useNotification();
   const navigate = useNavigate();
   const { addItem } = useItems();
 
@@ -22,14 +24,31 @@ export const AddItem = () => {
   });
 
   const onSubmit = async (data: ItemFormData) => {
-    const newItem = {
-      ...data,
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
-    };
+    try {
+      const newItem = {
+        ...data,
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+      };
 
-    addItem(newItem);
-    navigate('/dashboard');
+      await addItem(newItem);
+
+      showNotification({
+        message: 'Item created successfully',
+        type: 'success'
+      });
+
+      navigate('/dashboard');
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Failed to create item. Please try again.';
+      showNotification({
+        message: errorMessage,
+        type: 'error'
+      });
+    }
   };
 
   return (
