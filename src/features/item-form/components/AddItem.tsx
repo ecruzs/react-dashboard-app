@@ -36,12 +36,6 @@ export const AddItem = () => {
     <div className="mx-auto max-w-2xl space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Add New Item</h1>
-        <button
-          onClick={() => navigate('/dashboard')}
-          className="rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200"
-        >
-          Cancel
-        </button>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="rounded-lg bg-white p-6 shadow">
