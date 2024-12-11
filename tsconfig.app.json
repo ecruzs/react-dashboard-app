@@ -24,7 +24,8 @@
     "noFallthroughCasesInSwitch": true,
     /* Module alias */
     "types": [
-      "node"
+      "vitest",
+      "node",
     ],
     "baseUrl": ".",
     "paths": {
