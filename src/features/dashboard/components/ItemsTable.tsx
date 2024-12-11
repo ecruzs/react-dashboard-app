@@ -24,40 +24,68 @@ export const ItemsTable = () => {
     }).format(value);
   };
 
+  const SortIndicator = ({ field }: { field: keyof Item }) => {
+    if (sort.field !== field) {
+      return (
+        <span className="ml-1 text-gray-400">↕</span>
+      );
+    }
+    return (
+      <span className="ml-1 text-gray-900">
+        {sort.direction === 'asc' ? '↑' : '↓'}
+      </span>
+    );
+  };
+
   return (
     <div className="overflow-x-auto rounded-lg bg-white shadow">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
             <th
-              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 cursor-pointer"
               onClick={() => handleSort('name')}
             >
-              Name
+              <div className="flex items-center">
+                Name
+                <SortIndicator field="name" />
+              </div>
             </th>
             <th
-              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 cursor-pointer"
               onClick={() => handleSort('category')}
             >
-              Category
+              <div className="flex items-center">
+                Category
+                <SortIndicator field="category" />
+              </div>
             </th>
             <th
-              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 cursor-pointer"
               onClick={() => handleSort('value')}
             >
-              Value
+              <div className="flex items-center">
+                Value
+                <SortIndicator field="value" />
+              </div>
             </th>
             <th
-              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 cursor-pointer"
               onClick={() => handleSort('status')}
             >
-              Status
+              <div className="flex items-center">
+                Status
+                <SortIndicator field="status" />
+              </div>
             </th>
             <th
-              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+              className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 cursor-pointer"
               onClick={() => handleSort('createdAt')}
             >
-              Created At
+              <div className="flex items-center">
+                Created At
+                <SortIndicator field="createdAt" />
+              </div>
             </th>
           </tr>
         </thead>
@@ -72,10 +100,11 @@ export const ItemsTable = () => {
               <td className="px-6 py-4 text-sm text-gray-500">{item.category}</td>
               <td className="px-6 py-4 text-sm text-gray-500">{formatCurrency(item.value)}</td>
               <td className="px-6 py-4 text-sm">
-                <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${item.status === 'active'
+                <span className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
+                  item.status === 'active'
                     ? 'bg-green-100 text-green-800'
                     : 'bg-red-100 text-red-800'
-                  }`}>
+                }`}>
                   {item.status}
                 </span>
               </td>
