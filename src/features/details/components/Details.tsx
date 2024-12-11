@@ -3,6 +3,11 @@ import { useItems } from '@/shared/hooks/useItems';
 import { ItemActions } from './ItemActions';
 import { ItemDetails } from './ItemDetails';
 
+/**
+ * Details page component that handles item display and routing.
+ * Manages the layout for both item details and actions.
+ * Includes error handling for non-existent items.
+ */
 export const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -28,6 +33,13 @@ export const Details = () => {
     );
   }
 
+  /**
+   * Layout structure:
+   * - Header with back navigation
+   * - Two-column grid on larger screens:
+   *   - Main content (2/3 width): Item details
+   *   - Sidebar (1/3 width): Quick actions
+   */
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between border-b border-gray-200 pb-5">

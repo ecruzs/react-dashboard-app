@@ -10,12 +10,21 @@ interface ItemDetailsProps {
   item: Item;
 }
 
+/**
+ * Container component that manages the state between view and edit modes.
+ * Handles the edit/save workflow and error notifications.
+ * Toggles between ItemDetailsView and ItemEditForm based on editing state.
+ */
 export const ItemDetails = ({ item }: ItemDetailsProps) => {
   const { showNotification } = useNotification();
   const [isEditing, setIsEditing] = useState(false);
   const { updateItem } = useItems();
 
-
+  /**
+   * Handles saving updated item data.
+   * Merges existing item data with form updates.
+   * Shows success/error notifications and exits edit mode on success.
+   */
   const handleSave = async (data: ItemFormData) => {
     try {
       await updateItem({

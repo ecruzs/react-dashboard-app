@@ -9,12 +9,23 @@ interface ItemActionsProps {
   item: Item;
 }
 
+/**
+ * Component for handling item-related actions like status toggle and deletion.
+ * Implements:
+ * - Status toggle between active/inactive
+ * - Item deletion with confirmation
+ * - Error handling with notifications
+ */
 export const ItemActions = ({ item }: ItemActionsProps) => {
   const { showNotification } = useNotification();
   const navigate = useNavigate();
   const { deleteItem, updateItem } = useItems();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  /**
+   * Handles item deletion with error handling and navigation.
+   * Shows success/error notifications and redirects to dashboard on success.
+   */
   const handleDelete = async () => {
     try {
       await deleteItem(item.id);
@@ -35,6 +46,10 @@ export const ItemActions = ({ item }: ItemActionsProps) => {
     }
   };
 
+  /**
+   * Toggles item status between active/inactive.
+   * Updates item state and shows appropriate notification.
+   */
   const handleStatusToggle = async () => {
     try {
       await updateItem({

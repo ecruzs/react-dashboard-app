@@ -18,6 +18,10 @@ const initialState: AppState = {
   error: null,
 };
 
+/**
+ * Reducer function handling all state mutations.
+ * Implements immutable state updates for predictable behavior.
+ */
 function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case 'SET_ITEMS':
@@ -49,6 +53,13 @@ function appReducer(state: AppState, action: AppAction): AppState {
   }
 }
 
+/**
+ * Global state provider implementing Redux-like pattern with useReducer.
+ * Features:
+ * - Centralized state management
+ * - Type-safe actions and state updates
+ * - Predictable state mutations
+ */
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(appReducer, initialState);
 

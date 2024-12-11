@@ -2,10 +2,21 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { PieChart, Pie, Cell, Legend } from 'recharts';
 import { useItems } from '@/shared/hooks/useItems';
 
+/**
+ * Renders two data visualization charts:
+ * 1. Bar chart showing total value by category
+ * 2. Pie chart showing distribution of items by status
+ * 
+ * Uses Recharts for responsive, interactive visualizations
+ */
 export const DashboardCharts = () => {
   const { items } = useItems();
 
-  // Prepare data for the category chart
+  /**
+   * Aggregates total value for each category.
+   * Reduces the items array into a format suitable for the bar chart:
+   * [{ name: "category", value: totalValue }, ...]
+   */
   const categoryData = items.reduce((acc: { name: string; value: number }[], item) => {
     const existingCategory = acc.find(cat => cat.name === item.category);
     if (existingCategory) {
@@ -16,7 +27,11 @@ export const DashboardCharts = () => {
     return acc;
   }, []);
 
-  // Prepare data for the status chart
+  /**
+   * Counts items for each status type.
+   * Reduces the items array into a format suitable for the pie chart:
+   * [{ name: "status", value: count }, ...]
+   */
   const statusData = items.reduce((acc: { name: string; value: number }[], item) => {
     const existingStatus = acc.find(stat => stat.name === item.status);
     if (existingStatus) {

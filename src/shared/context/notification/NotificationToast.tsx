@@ -1,5 +1,12 @@
 import { useNotification } from "./useNotification";
 
+/**
+ * Toast component for displaying notifications.
+ * Features:
+ * - Different styles for success/error states
+ * - Centered positioning at the bottom of the screen
+ * - Automatic rendering/cleanup based on notification state
+ */
 export const NotificationToast = () => {
   const { notification } = useNotification();
 

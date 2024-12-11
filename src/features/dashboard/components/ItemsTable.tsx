@@ -2,10 +2,22 @@ import { useNavigate } from 'react-router-dom';
 import { useItems } from '@/shared/hooks/useItems';
 import { Item } from '@/core/types';
 
+/**
+ * Displays items in a sortable table format with the following features:
+ * - Clickable headers for sorting
+ * - Row click navigation to detail view
+ * - Formatted currency and dates
+ * - Status indicators with appropriate styling
+ */
 export const ItemsTable = () => {
   const { filteredItems, sort, setSort } = useItems();
   const navigate = useNavigate();
 
+  /**
+   * Handles column sorting with toggle between ascending and descending order.
+   * If clicking the same column, toggles direction.
+   * If clicking a new column, defaults to ascending order.
+   */
   const handleSort = (field: keyof Item) => {
     setSort({
       field,
@@ -24,6 +36,9 @@ export const ItemsTable = () => {
     }).format(value);
   };
 
+  /**
+   * Renders sort direction indicator based on current sort state
+   */
   const SortIndicator = ({ field }: { field: keyof Item }) => {
     if (sort.field !== field) {
       return (

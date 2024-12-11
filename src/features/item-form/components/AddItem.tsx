@@ -6,11 +6,20 @@ import { itemSchema, ItemFormData } from '../validation/itemSchema';
 import { categories, statuses } from '@/assets/data/mockData';
 import { useNotification } from '@/shared/context';
 
+/**
+ * Component for creating new items.
+ * Implements a form with validation, error handling, and success notifications.
+ * Uses react-hook-form with Zod schema validation.
+ */
 export const AddItem = () => {
   const { showNotification } = useNotification();
   const navigate = useNavigate();
   const { addItem } = useItems();
 
+  /**
+   * Form initialization with default values and Zod validation.
+   * Sets initial status to 'active' and value to 0.
+   */
   const {
     register,
     handleSubmit,
@@ -23,6 +32,12 @@ export const AddItem = () => {
     },
   });
 
+  /**
+   * Handles form submission.
+   * Generates unique ID and timestamp for the new item.
+   * Navigates to dashboard on success.
+   * Shows appropriate notifications for success/error states.
+   */
   const onSubmit = async (data: ItemFormData) => {
     try {
       const newItem = {

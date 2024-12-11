@@ -10,6 +10,14 @@ interface ItemEditFormProps {
   onCancel: () => void;
 }
 
+/**
+ * Form component for editing item details.
+ * Implements:
+ * - Form validation using Zod schema
+ * - Error display for each field
+ * - Currency input formatting
+ * - Submission handling with loading state
+ */
 export const ItemEditForm = ({ item, onSave, onCancel }: ItemEditFormProps) => {
   const {
     register,

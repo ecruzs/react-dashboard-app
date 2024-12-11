@@ -1,8 +1,21 @@
 import { useItems } from '@/shared/hooks/useItems';
 
+/**
+ * Displays key metrics in card format:
+ * - Total number of items
+ * - Total value of all items
+ * - Number of active items
+ * - Average value per item
+ * 
+ * Each metric is accompanied by an icon and uses consistent formatting.
+ */
 export const DashboardStats = () => {
   const { items } = useItems();
 
+  /**
+   * Calculates dashboard statistics from items data.
+   * Uses reduce for efficient calculation of totals and averages.
+   */
   const stats = {
     totalItems: items.length,
     totalValue: items.reduce((sum, item) => sum + item.value, 0),

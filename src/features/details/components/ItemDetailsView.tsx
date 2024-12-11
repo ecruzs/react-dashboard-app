@@ -5,6 +5,14 @@ interface ItemDetailsViewProps {
   onEdit: () => void;
 }
 
+/**
+ * Presentational component for displaying item details.
+ * Features:
+ * - Formatted display of all item properties
+ * - Conditional rendering of optional fields (description)
+ * - Status indicators with appropriate styling
+ * - Edit button to trigger edit mode
+ */
 export const ItemDetailsView = ({ item, onEdit }: ItemDetailsViewProps) => {
   return (
     <div className="rounded-xl bg-white p-6 shadow-sm">

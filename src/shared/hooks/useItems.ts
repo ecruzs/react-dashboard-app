@@ -4,9 +4,20 @@ import { Filters } from '@/core/types/filters';
 import { SortConfig } from '@/core/types/filters';
 import { useCallback, useMemo } from 'react';
 
+/**
+ * Custom hook that provides access to item-related state and actions.
+ * Implements:
+ * - CRUD operations for items
+ * - Filtering and sorting logic
+ * - Memoized computations for performance
+ */
 export function useItems() {
   const { state, dispatch } = useApp();
 
+   /**
+   * Memoized action dispatchers for state updates.
+   * Uses useCallback to prevent unnecessary re-renders.
+   */
   const setItems = useCallback((items: Item[]) => {
     dispatch({ type: 'SET_ITEMS', payload: items });
   }, [dispatch]);
@@ -31,13 +42,20 @@ export function useItems() {
     dispatch({ type: 'SET_SORT', payload: sort });
   }, [dispatch]);
 
+  /**
+   * Memoized computation of filtered and sorted items.
+   * Optimizes performance by:
+   * - Combining all filters in a single pass
+   * - Only recomputing when dependencies change
+   * - Using efficient sorting techniques
+   */
   const filteredAndSortedItems = useMemo(() => {
     let result = [...state.items];
 
     const { search, category, status } = state.filters;
     const { field, direction } = state.sort;
 
-    // Apply all filters in one iteration 
+    // Apply all filters in one iteration for better performance
     if (search || category || status) {
       const searchLower = search.toLowerCase();
       result = result.filter(item => {
@@ -48,7 +66,7 @@ export function useItems() {
       });
     }
 
-    // Optimize sorting
+    // Optimized sorting with type safety and null checks
     const sortDirection = direction === 'asc' ? 1 : -1;
     return result.sort((a, b) => {
       const aValue = a[field];

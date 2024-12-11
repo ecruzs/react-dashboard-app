@@ -1,9 +1,22 @@
 import { useItems } from '@/shared/hooks/useItems';
 import { categories, statuses } from '@/assets/data/mockData';
 
+/**
+ * Provides filtering capabilities for the dashboard.
+ * Includes:
+ * - Text search across items
+ * - Category filter dropdown
+ * - Status filter dropdown
+ * 
+ * All filters are controlled through the useItems hook for centralized state management.
+ */
 export const DashboardFilters = () => {
   const { filters, setFilters } = useItems();
 
+  /**
+   * Generic handler for all filter changes.
+   * Updates the filter state while preserving other existing filters.
+   */
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
