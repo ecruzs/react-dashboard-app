@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 export const Navigation = () => {
   const location = useLocation();
-  
+
   const isActive = (path: string) => {
     return location.pathname === path ? 'text-primary-600' : 'text-gray-600 hover:text-gray-900';
   };
@@ -23,11 +23,10 @@ export const Navigation = () => {
             >
               Dashboard
             </Link>
-            <Link
-              to="/add"
-              className={`${isActive('/add')} font-medium transition-colors`}
-            >
-              Add Item
+            <Link to="/add">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                Add Item
+              </button>
             </Link>
           </div>
         </div>
