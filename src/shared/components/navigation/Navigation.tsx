@@ -13,7 +13,7 @@ export const Navigation = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link to="/" className="text-xl font-bold text-gray-900">
-              Dashboard App
+              DashboardApp
             </Link>
           </div>
           <div className="flex items-center space-x-4">
